@@ -207,12 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // ⚠️ Firebase 설정값을 아래에 입력해주세요
     // Firebase 콘솔(console.firebase.google.com)에서 앱 등록 후 받는 config 객체입니다
     const firebaseConfig = {
-        apiKey:            "YOUR_API_KEY",
-        authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-        projectId:         "YOUR_PROJECT_ID",
-        storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId:             "YOUR_APP_ID"
+        apiKey:            "AIzaSyC-BRKmOhj_wysfNhNxcSKbIqtIm82FbtA",
+        authDomain:        "wedding-invitation-35b40.firebaseapp.com",
+        projectId:         "wedding-invitation-35b40",
+        storageBucket:     "wedding-invitation-35b40.firebasestorage.app",
+        messagingSenderId: "303986241786",
+        appId:             "1:303986241786:web:ec5d9e14e83170bbf6d943",
+        measurementId:     "G-NF1TLH2JCH"
     };
 
     // Firebase가 설정된 경우에만 방명록 실행

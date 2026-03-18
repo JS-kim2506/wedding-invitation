@@ -167,12 +167,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (heartBtn && particleContainer) {
         heartBtn.addEventListener('click', (e) => {
-            // 클릭한 정확한 지점(clientX, clientY) 사용
-            const x = e.clientX;
-            const y = e.clientY;
+            // 클릭 지점 좌표 (모바일/데스크탑 호환)
+            const x = e.clientX || (e.touches && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0].clientY);
             
+            // 만약 좌표를 못 가져오면 버튼 중앙으로 대체
+            let finalX = x;
+            let finalY = y;
+            if (!finalX || !finalY) {
+                const rect = heartBtn.getBoundingClientRect();
+                finalX = rect.left + rect.width / 2;
+                finalY = rect.top + rect.height / 2;
+            }
+
             for (let i = 0; i < 20; i++) {
-                createSvgHeart(x, y);
+                createSvgHeart(finalX, finalY);
             }
         });
     }
@@ -187,11 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
         heart.appendChild(path);
 
         // 랜덤 오프셋 파라미터 (Click 지점으로부터의 상대적 거리)
-        const tx = (Math.random() - 0.5) * 450; // 좌우 아주 넓게
-        const ty = -300 - Math.random() * 400; // 위로 높게
+        const tx = (Math.random() - 0.5) * 400; // 좌우 넓게
+        const ty = -200 - Math.random() * 400; // 위로 높게
         const rot = (Math.random() - 0.5) * 60;
         const rotEnd = rot + (Math.random() - 0.5) * 240;
-        const size = 18 + Math.random() * 22;
+        const size = 20 + Math.random() * 20;
 
         heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;

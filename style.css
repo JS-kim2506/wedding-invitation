@@ -310,31 +310,86 @@ section + section {
 }
 
 /* ===================================
+   공유 섹션
+   =================================== */
+.share-section {
+    background: var(--bg-color);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.share-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--accent-gold-light);
+    background: var(--white);
+    color: var(--text-main);
+    font-family: inherit;
+}
+
+.share-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.share-btn:hover {
+    border-color: var(--accent-gold);
+    background: var(--bg-color);
+    transform: translateY(-2px);
+}
+
+.kakao-share {
+    border-color: #fae100;
+    background: #fae100;
+    color: #3c1e1e;
+}
+
+.kakao-share:hover {
+    background: #fada00;
+    border-color: #fada00;
+}
+
+/* ===================================
    Interaction Button (Premium)
    =================================== */
 .interaction-btn-section {
     background: var(--bg-color);
-    padding-bottom: 100px;
+    padding: 40px 32px 100px;
+    text-align: center;
 }
 
 .heart-btn {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     background: var(--white);
-    border: 1px border var(--accent-gold);
+    border: 1px solid var(--accent-gold); /* 오타 수정: border -> solid */
     color: var(--accent-gold);
-    padding: 20px 60px;
-    font-size: 1.4rem;
+    padding: 18px 64px;
+    font-size: 1.3rem;
     border-radius: 50px;
     cursor: pointer;
     box-shadow: var(--shadow-soft);
-    transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    letter-spacing: 2px;
 }
 
 .heart-btn:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-deep);
-    border-color: var(--accent-gold);
+    background: var(--accent-gold);
+    color: var(--white);
 }
 
 /* ===================================

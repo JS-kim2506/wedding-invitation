@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>우리의 결혼식에 초대합니다</title>
+
+    <!-- 트렌디한 폰트: Pretendard 또는 지마켓 산스 추천, 여기서는 깔끔한 웹폰트로 시작 -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- Swiper.js CSS (슬라이드 갤러리용) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 밤하늘 별 배경 캔버스 -->
+    <div class="stars-bg"></div>
+
+    <main class="invitation-container">
+        <!-- 메인 커버 섹션 -->
+        <section class="cover-section fade-in">
+            <div class="cover-titles">
+                <h2 class="date">2024. 10. 26</h2>
+                <h1 class="names">김지수 & 이민호</h1>
+                <p class="subtitle">우리, 결혼합니다</p>
+            </div>
+            <!-- 메인 사진이 들어갈 공간 (임시 플레이스홀더) -->
+            <div class="cover-image-placeholder">
+                <img src="images/KakaoTalk_20260317_171113044.jpg" alt="메인 웨딩 사진" />
+            </div>
+        </section>
+
+        <!-- 모시는 글 섹션 -->
+        <section class="greeting-section fade-in">
+            <h3>초대합니다</h3>
+            <p>
+                서로가 마주 보며 다져온 사랑을<br>
+                이제 함께 한 곳을 바라보며 걸어가려 합니다.<br>
+                저희 두 사람이 사랑의 이름으로<br>
+                지켜나갈 수 있도록<br>
+                앞날을 축복해 주시면 감사하겠습니다.
+            </p>
+        </section>
+
+        <!-- 갤러리 섹션 (Swiper) -->
+        <section class="gallery-section fade-in">
+            <h3>우리의 순간들</h3>
+            <div class="swiper gallery-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_01.jpg" alt="갤러리 사진 1">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_02.jpg" alt="갤러리 사진 2">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_03.jpg" alt="갤러리 사진 3">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_04.jpg" alt="갤러리 사진 4">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_05.jpg" alt="갤러리 사진 5">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_06.jpg" alt="갤러리 사진 6">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_07.jpg" alt="갤러리 사진 7">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_08.jpg" alt="갤러리 사진 8">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_09.jpg" alt="갤러리 사진 9">
+                    </div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_10.jpg" alt="갤러리 사진 10">
+                    </div>
+                </div>
+                <!-- 네비게이션 버튼 -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <!-- 페이징(점) -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- 마음 전하실 곳 (계좌번호) 섹션 -->
+        <section class="account-section fade-in">
+            <h3>마음 전하실 곳</h3>
+            <div class="account-box">
+                <div class="account-info">
+                    <span class="bank">신한은행</span>
+                    <span class="acc-num" id="groom-acc">110-123-456789</span>
+                    <span class="name">이민호</span>
+                </div>
+                <button class="copy-btn" data-clipboard-target="#groom-acc">복사하기</button>
+            </div>
+            <div class="account-box">
+                <div class="account-info">
+                    <span class="bank">국민은행</span>
+                    <span class="acc-num" id="bride-acc">04-1234-5678</span>
+                    <span class="name">김지수</span>
+                </div>
+                <button class="copy-btn" data-clipboard-target="#bride-acc">복사하기</button>
+            </div>
+        </section>
+
+        <!-- 카카오톡 공유 등 링크 복사 션 -->
+        <section class="share-section fade-in">
+            <button class="share-btn kakao-share" id="kakao-share-btn">
+                <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_small.png"
+                    alt="카카오톡 공유" />
+                카카오톡 공유하기
+            </button>
+            <button class="share-btn link-copy" id="link-copy-btn">
+                🔗 링크 복사하기
+            </button>
+        </section>
+
+        <!-- 인터랙션 하트 팝 버튼 섹션 -->
+        <section class="interaction-btn-section fade-in">
+            <button id="heart-btn" class="heart-btn">Click!♥</button>
+        </section>
+
+        <!-- 사진 확대 보기 모달 (라이트박스) -->
+        <div id="image-modal" class="image-modal">
+            <span class="close-modal">&times;</span>
+            <img class="modal-content" id="expanded-img">
+        </div>
+
+    </main>
+
+    <!-- Kakao SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+        integrity="sha384-TinbxGrZg3K/Kz8Ew9rLFX5E9lF51Q7TjN4V6E2E1x62oI3n5f0kG0u+G8cK8XmQ"
+        crossorigin="anonymous"></script>
+    <!-- Swiper.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -8,9 +8,10 @@
 }
 
 body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    background-color: #faf7f2;
-    color: #3d3229;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background-color: #f8f5f0;
+    color: #2c2016;
     line-height: 1.7;
     overflow-x: hidden;
 }
@@ -30,32 +31,65 @@ body {
    섹션 공통
    =================================== */
 section {
-    padding: 60px 28px;
+    padding: 64px 28px;
 }
 
 section + section {
-    border-top: 1px solid #e9e0d6;
+    border-top: 1px solid #e5dcd2;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
 }
 
+/* 영문 장식 타이틀 (Cormorant Garamond) */
 .section-title h3 {
-    font-size: 1rem;
+    font-family: 'Cormorant Garamond', 'Pretendard', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #2c2016;
+    letter-spacing: 2px;
+    line-height: 1.3;
+}
+
+.section-title .ko-label {
+    display: block;
+    font-size: 0.78rem;
     font-weight: 400;
     letter-spacing: 4px;
-    color: #a08060;
+    color: #b8966e;
     text-transform: uppercase;
+    margin-top: 6px;
 }
 
-.section-title .title-deco {
-    display: block;
-    width: 32px;
+.title-deco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.title-deco::before,
+.title-deco::after {
+    content: '';
+    width: 40px;
     height: 1px;
-    background: #c9a87c;
-    margin: 12px auto 0;
+    background: linear-gradient(to right, transparent, #c4956a);
+}
+
+.title-deco::after {
+    background: linear-gradient(to left, transparent, #c4956a);
+}
+
+.title-deco-diamond {
+    width: 5px;
+    height: 5px;
+    background: #c4956a;
+    transform: rotate(45deg);
+    border-radius: 1px;
 }
 
 /* ===================================
@@ -63,44 +97,71 @@ section + section {
    =================================== */
 .cover-section {
     text-align: center;
-    padding: 70px 28px 50px;
-    background: #faf7f2;
+    padding: 0;
     border-top: none;
+    position: relative;
 }
 
-.cover-titles {
-    margin-bottom: 36px;
-}
-
-.date {
-    font-size: 0.9rem;
-    font-weight: 300;
-    letter-spacing: 4px;
-    color: #a08060;
-    margin-bottom: 16px;
-    display: block;
-}
-
-.names {
-    font-size: 2rem;
-    font-weight: 300;
-    letter-spacing: 6px;
-    color: #3d3229;
-    margin-bottom: 14px;
-}
-
-.subtitle {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: #8a7a6a;
-    letter-spacing: 2px;
+.cover-image-placeholder {
+    position: relative;
 }
 
 .cover-image-placeholder img {
     width: 100%;
-    border-radius: 4px;
+    display: block;
     object-fit: cover;
-    box-shadow: 0 8px 40px rgba(61, 50, 41, 0.12);
+    min-height: 480px;
+    max-height: 80vh;
+}
+
+/* 이미지 위 그라디언트 오버레이 */
+.cover-image-placeholder::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(20,14,8,0.72) 0%, transparent 100%);
+}
+
+/* 이미지 위에 글자 오버레이 */
+.cover-titles {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 32px 28px 40px;
+    text-align: center;
+    color: #fff;
+}
+
+.date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,0.75);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 8px;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.7);
 }
 
 /* ===================================
@@ -112,24 +173,24 @@ section + section {
 }
 
 .greeting-section p {
-    font-size: 0.97rem;
+    font-size: 0.95rem;
     font-weight: 300;
     color: #6b5e52;
-    line-height: 2;
+    line-height: 2.2;
 }
 
 /* ===================================
    갤러리 섹션 - 2열 그리드
    =================================== */
 .gallery-section {
-    background: #faf7f2;
+    background: #f8f5f0;
     text-align: center;
 }
 
 .photo-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px;
+    gap: 4px;
 }
 
 .photo-grid img {
@@ -137,12 +198,13 @@ section + section {
     aspect-ratio: 3/4;
     object-fit: cover;
     cursor: zoom-in;
-    border-radius: 2px;
-    transition: opacity 0.2s;
+    display: block;
+    transition: opacity 0.2s, transform 0.25s;
 }
 
 .photo-grid img:hover {
-    opacity: 0.9;
+    opacity: 0.88;
+    transform: scale(0.98);
 }
 
 /* ===================================
@@ -156,7 +218,7 @@ section + section {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(20, 15, 10, 0.94);
+    background: rgba(12, 8, 4, 0.95);
     opacity: 0;
     transition: opacity 0.3s ease;
     align-items: center;
@@ -175,31 +237,32 @@ section + section {
     justify-content: center;
     width: 100%;
     height: 100%;
+    padding: 60px 50px;
 }
 
 .modal-content {
-    max-width: 92vw;
+    max-width: 100%;
     max-height: 85vh;
-    border-radius: 4px;
     object-fit: contain;
-    animation: zoom 0.25s ease;
+    animation: zoom 0.22s ease;
 }
 
 @keyframes zoom {
-    from { transform: scale(0.92); }
-    to   { transform: scale(1); }
+    from { transform: scale(0.93); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
 }
 
 .close-modal {
     position: fixed;
-    top: 16px;
-    right: 20px;
-    color: rgba(255,255,255,0.8);
-    font-size: 32px;
+    top: 18px;
+    right: 22px;
+    color: rgba(255,255,255,0.7);
+    font-size: 28px;
     cursor: pointer;
     transition: color 0.2s;
     z-index: 10001;
     line-height: 1;
+    font-weight: 300;
 }
 
 .close-modal:hover { color: #fff; }
@@ -208,33 +271,40 @@ section + section {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    font-size: 1.6rem;
-    width: 44px;
-    height: 44px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.8);
+    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: all 0.2s;
     z-index: 10001;
+    font-family: 'Cormorant Garamond', serif;
 }
 
-.modal-nav:hover { background: rgba(255,255,255,0.28); }
-.modal-nav.prev { left: 12px; }
-.modal-nav.next { right: 12px; }
+.modal-nav:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.6);
+    color: #fff;
+}
+
+.modal-nav.prev { left: 10px; }
+.modal-nav.next { right: 10px; }
 
 .modal-counter {
     position: fixed;
-    bottom: 24px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
-    color: rgba(255,255,255,0.6);
-    font-size: 0.85rem;
-    letter-spacing: 1px;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 /* ===================================
@@ -246,18 +316,18 @@ section + section {
 }
 
 .account-box {
-    background: #faf7f2;
-    border: 1px solid #e9e0d6;
-    border-radius: 8px;
+    background: #f8f5f0;
+    border: 1px solid #e5dcd2;
+    border-radius: 4px;
     padding: 18px 20px;
     margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
 }
 
 .account-info {
-    text-align: left;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -265,44 +335,46 @@ section + section {
 
 .account-info .bank,
 .account-info .name {
-    font-size: 0.82rem;
-    color: #a08060;
+    font-size: 0.8rem;
+    color: #b8966e;
     letter-spacing: 0.5px;
 }
 
 .account-info .acc-num {
     font-size: 1rem;
     font-weight: 500;
-    letter-spacing: 1px;
-    color: #3d3229;
+    letter-spacing: 1.5px;
+    color: #2c2016;
+    font-family: 'Cormorant Garamond', monospace;
 }
 
 .copy-btn {
     background: transparent;
-    border: 1px solid #c9a87c;
-    color: #a08060;
+    border: 1px solid #c4956a;
+    color: #b8966e;
     padding: 7px 16px;
-    border-radius: 20px;
-    font-size: 0.82rem;
+    border-radius: 2px;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.2s;
     font-family: inherit;
+    letter-spacing: 0.5px;
 }
 
 .copy-btn:hover {
-    background: #a08060;
+    background: #c4956a;
     color: #fff;
-    border-color: #a08060;
+    border-color: #c4956a;
 }
 
 /* ===================================
    방명록 섹션
    =================================== */
 .guestbook-section {
-    background: #faf7f2;
+    background: #f8f5f0;
     text-align: center;
-    border-top: 1px solid #e9e0d6;
-    padding: 60px 28px;
+    border-top: 1px solid #e5dcd2;
+    padding: 64px 28px;
 }
 
 .guestbook-form {
@@ -317,11 +389,11 @@ section + section {
     width: 100%;
     padding: 13px 16px;
     border: 1px solid #ddd5c9;
-    border-radius: 6px;
+    border-radius: 3px;
     background: #fff;
-    color: #3d3229;
+    color: #2c2016;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     outline: none;
     transition: border-color 0.2s;
     resize: none;
@@ -329,12 +401,12 @@ section + section {
 
 .guestbook-form input:focus,
 .guestbook-form textarea:focus {
-    border-color: #a08060;
+    border-color: #c4956a;
 }
 
 .guestbook-form input::placeholder,
 .guestbook-form textarea::placeholder {
-    color: #bfb3a7;
+    color: #c4b5a5;
 }
 
 .guestbook-form textarea {
@@ -342,33 +414,33 @@ section + section {
 }
 
 .guestbook-submit {
-    background: #3d3229;
-    color: #faf7f2;
+    background: #2c2016;
+    color: #f8f5f0;
     border: none;
     padding: 14px;
-    border-radius: 6px;
-    font-size: 0.95rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
     font-family: inherit;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .guestbook-submit:hover {
-    background: #5a4a3a;
+    background: #4a3828;
 }
 
 .guestbook-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     text-align: left;
 }
 
 .guestbook-item {
     background: #fff;
-    border: 1px solid #e9e0d6;
-    border-radius: 8px;
+    border: 1px solid #e5dcd2;
+    border-radius: 3px;
     padding: 16px 18px;
 }
 
@@ -380,27 +452,31 @@ section + section {
 }
 
 .guestbook-item .gb-name {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
-    color: #3d3229;
+    color: #2c2016;
+    letter-spacing: 0.5px;
 }
 
 .guestbook-item .gb-date {
-    font-size: 0.78rem;
-    color: #bfb3a7;
+    font-size: 0.76rem;
+    color: #c4b5a5;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 1px;
 }
 
 .guestbook-item .gb-message {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: #6b5e52;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .guestbook-empty {
-    color: #bfb3a7;
-    font-size: 0.9rem;
+    color: #c4b5a5;
+    font-size: 0.88rem;
     text-align: center;
     padding: 20px 0;
+    font-style: italic;
 }
 
 /* ===================================
@@ -411,17 +487,17 @@ section + section {
     flex-direction: column;
     gap: 12px;
     align-items: center;
-    padding: 50px 28px;
+    padding: 56px 28px;
     background: #fff;
-    border-top: 1px solid #e9e0d6;
+    border-top: 1px solid #e5dcd2;
 }
 
 .share-btn {
     width: 100%;
     max-width: 320px;
     padding: 14px 20px;
-    border-radius: 6px;
-    font-size: 0.95rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
     font-weight: 500;
     font-family: inherit;
     cursor: pointer;
@@ -431,7 +507,7 @@ section + section {
     gap: 10px;
     transition: opacity 0.2s;
     border: none;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .share-btn:active { opacity: 0.8; }
@@ -445,7 +521,7 @@ section + section {
 
 .link-copy {
     background: transparent;
-    color: #3d3229;
+    color: #2c2016;
     border: 1px solid #ddd5c9 !important;
 }
 
@@ -454,29 +530,30 @@ section + section {
    =================================== */
 .interaction-btn-section {
     text-align: center;
-    padding: 50px 28px;
-    background: #faf7f2;
-    border-top: 1px solid #e9e0d6;
+    padding: 56px 28px 72px;
+    background: #f8f5f0;
+    border-top: 1px solid #e5dcd2;
 }
 
 .heart-btn {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
     background: none;
-    border: 1px solid #c9a87c;
-    color: #a08060;
-    padding: 13px 32px;
-    font-size: 0.95rem;
+    border: 1px solid #c4956a;
+    color: #c4956a;
+    padding: 14px 40px;
+    font-size: 1.15rem;
     font-weight: 400;
-    font-family: inherit;
     letter-spacing: 2px;
-    border-radius: 30px;
+    border-radius: 2px;
     cursor: pointer;
     transition: all 0.25s;
 }
 
-.heart-btn:hover {
-    background: #a08060;
+.heart-btn:hover,
+.heart-btn:active {
+    background: #c4956a;
     color: #fff;
-    border-color: #a08060;
 }
 
 /* ===================================
@@ -484,7 +561,7 @@ section + section {
    =================================== */
 .fade-in {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(28px);
     transition: opacity 0.9s ease-out, transform 0.9s ease-out;
 }
 
@@ -494,12 +571,28 @@ section + section {
 }
 
 /* ===================================
-   하트 파티클 (JS 제어용)
+   하트 파티클 (CSS 키프레임 방식)
    =================================== */
 .particle-heart {
     position: fixed;
     pointer-events: none;
     user-select: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
+    animation: heartFloat 1.2s ease-out forwards;
+    transform-origin: center;
+}
+
+@keyframes heartFloat {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.2);
+    }
+    40% {
+        opacity: 0.9;
+        transform: translate(var(--tx), var(--ty-mid)) scale(1.1) rotate(var(--rot));
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty-end)) scale(0.5) rotate(var(--rot));
+    }
 }

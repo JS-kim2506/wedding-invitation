@@ -168,34 +168,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createHearts(x, y) {
         const emojis = ['♥', '♡', '💕', '💗'];
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 15; i++) {
             const heart = document.createElement('div');
             heart.classList.add('particle-heart');
             heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            document.body.appendChild(heart);
-
-            const size = Math.random() * 16 + 14;
-            const destX = x + (Math.random() - 0.5) * 180;
-            const destY = y - Math.random() * 180 - 80;
-            const rotation = (Math.random() - 0.5) * 60;
-
+            
+            // 랜덤 경로 설정
+            const tx     = (Math.random() - 0.5) * 200; // 좌우 이동
+            const tyMid  = -100 - Math.random() * 50;  // 중간 높이
+            const tyEnd  = -250 - Math.random() * 100; // 최종 높이
+            const rot    = (Math.random() - 0.5) * 90;  // 회전
+            const size   = Math.random() * 10 + 15;    // 크기
+            
             heart.style.left = `${x}px`;
             heart.style.top  = `${y}px`;
             heart.style.fontSize = `${size}px`;
-            heart.style.color = ['#c9a87c', '#e8b4b8', '#d4a5a5', '#b8966e'][Math.floor(Math.random() * 4)];
-
-            const anim = heart.animate([
-                { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-                { transform: `translate(${destX - x}px, ${destY - y}px) rotate(${rotation}deg) scale(1)`, opacity: 0.8 },
-                { transform: `translate(${destX - x}px, ${destY - y - 60}px) rotate(${rotation}deg) scale(0)`, opacity: 0 }
-            ], {
-                duration: 1000 + Math.random() * 600,
-                delay: Math.random() * 150,
-                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                fill: 'forwards'
-            });
-
-            anim.onfinish = () => heart.remove();
+            heart.style.color = ['#c4956a', '#e8b4b8', '#d4a5a5', '#b8966e'][Math.floor(Math.random() * 4)];
+            
+            // CSS 변수 전달
+            heart.style.setProperty('--tx', `${tx}px`);
+            heart.style.setProperty('--ty-mid', `${tyMid}px`);
+            heart.style.setProperty('--ty-end', `${tyEnd}px`);
+            heart.style.setProperty('--rot', `${rot}deg`);
+            
+            document.body.appendChild(heart);
+            
+            // 애니메이션 종료 후 제거
+            heart.addEventListener('animationend', () => heart.remove());
         }
     }
 

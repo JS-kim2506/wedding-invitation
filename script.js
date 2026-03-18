@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
             textarea.select();
             try {
                 document.execCommand('copy');
-                alert('Account number copied to clipboard.');
+                alert('계좌번호가 복사되었습니다.');
             } catch {
-                alert('Copy failed. Please try again.');
+                alert('복사에 실패했습니다. 다시 시도해 주세요.');
             }
             document.body.removeChild(textarea);
         });
@@ -115,14 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
         Kakao.init('b1cad1ee5721d3a29b39ea0dbf05828b');
         kakaoBtn.addEventListener('click', () => {
             if (!Kakao.isInitialized()) {
-                alert('Kakao API is not initialized.');
+                alert('카카오 API 초기화에 실패했습니다.');
                 return;
             }
             Kakao.Share.sendDefault({
                 objectType: 'feed',
                 content: {
-                    title: 'Ji Su & Min Ho Wedding',
-                    description: 'Celebrate our first step together.',
+                    title: '민호 & 지수 결혼식에 초대합니다',
+                    description: '우리 두 사람의 첫 시작을 함께 축복해 주세요.',
                     imageUrl: 'https://JS-kim2506.github.io/wedding-invitation/images/KakaoTalk_20260317_171113044.jpg',
                     link: {
                         mobileWebUrl: window.location.href,
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                 },
                 buttons: [{
-                    title: 'View Invitation',
+                    title: '청첩장 보기',
                     link: {
                         mobileWebUrl: window.location.href,
                         webUrl: window.location.href,
@@ -150,9 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
             textarea.select();
             try {
                 document.execCommand('copy');
-                alert('URL link copied to clipboard!');
+                alert('청첩장 링크가 복사되었습니다!');
             } catch {
-                alert('Copy failed.');
+                alert('복사에 실패했습니다.');
             }
             document.body.removeChild(textarea);
         });
@@ -160,15 +160,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ===================================
-    // 5. 프리미엄 SVG 하트 인터랙션 (수정된 핵심 로직)
+    // 5. 프리미엄 SVG 하트 인터랙션 (좌표 보정 완료)
     // ===================================
     const heartBtn = document.getElementById('heart-btn');
     const particleContainer = document.getElementById('particle-container');
 
     if (heartBtn && particleContainer) {
         heartBtn.addEventListener('click', (e) => {
-            for (let i = 0; i < 18; i++) {
-                createSvgHeart(e.clientX, e.clientY);
+            // 버튼 중앙 지점에서 생성
+            const rect = heartBtn.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                createSvgHeart(x, y);
             }
         });
     }
@@ -182,28 +187,30 @@ document.addEventListener('DOMContentLoaded', () => {
         path.setAttribute("d", "M16 28.5L14.1 26.7C7.3 20.6 2.8 16.5 2.8 11.5 2.8 7.4 6 4.2 10.1 4.2c2.3 0 4.5 1.1 5.9 2.8 1.4-1.7 3.6-2.8 5.9-2.8 4.1 0 7.3 3.2 7.3 7.3 0 5-4.5 9.1-11.3 15.2L16 28.5z");
         heart.appendChild(path);
 
-        // 랜덤 파라미터
-        const tx = (Math.random() - 0.5) * 300;
-        const ty = -300 - Math.random() * 300;
-        const rot = (Math.random() - 0.5) * 45;
+        // 랜덤 오프셋 파라미터 (Click 지점으로부터의 상대적 거리)
+        const tx = (Math.random() - 0.5) * 400; // 좌우 넓게
+        const ty = -200 - Math.random() * 400; // 위로 높게
+        const rot = (Math.random() - 0.5) * 60;
         const rotEnd = rot + (Math.random() - 0.5) * 180;
-        const size = 15 + Math.random() * 20;
+        const size = 20 + Math.random() * 20;
 
         heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;
         heart.style.left = `${x}px`;
         heart.style.top = `${y}px`;
         
-        // CSS 변수 전달
-        heart.style.setProperty('--tx', `${x + tx}px`);
-        heart.style.setProperty('--ty', `${y + ty}px`);
+        // CSS 변수로 오프셋 전달 (style.css에서 calc로 처리)
+        heart.style.setProperty('--tx', `${tx}px`);
+        heart.style.setProperty('--ty', `${ty}px`);
         heart.style.setProperty('--rot', `${rot}deg`);
         heart.style.setProperty('--rot-end', `${rotEnd}deg`);
 
         particleContainer.appendChild(heart);
 
-        // 애니메이션 완료 후 제거
-        heart.addEventListener('animationend', () => heart.remove());
+        // 애니메이션 완료 후 확실하게 제거
+        setTimeout(() => {
+            if (heart.parentNode) heart.remove();
+        }, 1600);
     }
 
 

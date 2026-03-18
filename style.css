@@ -351,22 +351,25 @@ section + section {
     transform: translateY(0);
 }
 
-/* 하트 파티클 레이어 (SVG 기반으로 JS에서 제어할 예정) */
+/* ===================================
+   하트 파티클 (SVG 기반)
+   =================================== */
 .particle-container {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 10000; /* 최상단 레이어 */
 }
 
 .svg-heart {
     position: absolute;
     fill: var(--accent-gold);
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    animation: heartFly 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    will-change: transform, opacity;
+    animation: heartFly 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 @keyframes heartFly {
@@ -374,12 +377,13 @@ section + section {
         transform: translate(-50%, -50%) scale(0) rotate(0deg);
         opacity: 0;
     }
-    20% {
+    15% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1.2) rotate(var(--rot));
     }
     100% {
-        transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot-end));
+        /* 하트마다 다른 최종 위치로 날아감 (상대적 오프셋 적용) */
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.4) rotate(var(--rot-end));
         opacity: 0;
     }
 }

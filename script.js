@@ -167,10 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (heartBtn && particleContainer) {
         heartBtn.addEventListener('click', (e) => {
-            // 버튼 중앙 지점에서 생성
-            const rect = heartBtn.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
+            // 클릭한 정확한 지점(clientX, clientY) 사용
+            const x = e.clientX;
+            const y = e.clientY;
             
             for (let i = 0; i < 20; i++) {
                 createSvgHeart(x, y);
@@ -188,11 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
         heart.appendChild(path);
 
         // 랜덤 오프셋 파라미터 (Click 지점으로부터의 상대적 거리)
-        const tx = (Math.random() - 0.5) * 400; // 좌우 넓게
-        const ty = -200 - Math.random() * 400; // 위로 높게
+        const tx = (Math.random() - 0.5) * 450; // 좌우 아주 넓게
+        const ty = -300 - Math.random() * 400; // 위로 높게
         const rot = (Math.random() - 0.5) * 60;
-        const rotEnd = rot + (Math.random() - 0.5) * 180;
-        const size = 20 + Math.random() * 20;
+        const rotEnd = rot + (Math.random() - 0.5) * 240;
+        const size = 18 + Math.random() * 22;
 
         heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;
@@ -210,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 애니메이션 완료 후 확실하게 제거
         setTimeout(() => {
             if (heart.parentNode) heart.remove();
-        }, 1600);
+        }, 1700);
     }
 
 

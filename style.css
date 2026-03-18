@@ -180,31 +180,50 @@ section + section {
 }
 
 /* ===================================
-   갤러리 섹션 - 2열 그리드
+   갤러리 섹션 - 슬라이더
    =================================== */
 .gallery-section {
     background: #f8f5f0;
     text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.photo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
+.gallery-slider {
+    width: 100%;
+    padding: 20px 0 50px;
 }
 
-.photo-grid img {
+.gallery-slider .swiper-slide {
+    width: 280px;
+    height: auto;
+    transition: all 0.4s ease;
+    opacity: 0.4; /* 기본 투명도 */
+    transform: scale(0.9);
+}
+
+.gallery-slider .swiper-slide-active {
+    opacity: 1; /* 중앙 이미지만 선명하게 */
+    transform: scale(1);
+}
+
+.gallery-slider img {
     width: 100%;
     aspect-ratio: 3/4;
     object-fit: cover;
+    border-radius: 12px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     cursor: zoom-in;
     display: block;
-    transition: opacity 0.2s, transform 0.25s;
 }
 
-.photo-grid img:hover {
-    opacity: 0.88;
-    transform: scale(0.98);
+.gallery-slider .swiper-pagination-bullet {
+    background: #c4956a;
+    opacity: 0.2;
+}
+
+.gallery-slider .swiper-pagination-bullet-active {
+    opacity: 1;
 }
 
 /* ===================================

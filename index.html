@@ -10,6 +10,9 @@
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -50,17 +53,21 @@
                 <span class="ko-label">우리의 순간들</span>
                 <div class="title-deco"><span class="title-deco-diamond"></span></div>
             </div>
-            <div class="photo-grid" id="photo-grid">
-                <img src="images/KakaoTalk_20260317_171113044_01.jpg" alt="갤러리 사진 1">
-                <img src="images/KakaoTalk_20260317_171113044_02.jpg" alt="갤러리 사진 2">
-                <img src="images/KakaoTalk_20260317_171113044_03.jpg" alt="갤러리 사진 3">
-                <img src="images/KakaoTalk_20260317_171113044_04.jpg" alt="갤러리 사진 4">
-                <img src="images/KakaoTalk_20260317_171113044_05.jpg" alt="갤러리 사진 5">
-                <img src="images/KakaoTalk_20260317_171113044_06.jpg" alt="갤러리 사진 6">
-                <img src="images/KakaoTalk_20260317_171113044_07.jpg" alt="갤러리 사진 7">
-                <img src="images/KakaoTalk_20260317_171113044_08.jpg" alt="갤러리 사진 8">
-                <img src="images/KakaoTalk_20260317_171113044_09.jpg" alt="갤러리 사진 9">
-                <img src="images/KakaoTalk_20260317_171113044_10.jpg" alt="갤러리 사진 10">
+            <div class="swiper gallery-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_01.jpg" alt="갤러리 사진 1"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_02.jpg" alt="갤러리 사진 2"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_03.jpg" alt="갤러리 사진 3"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_04.jpg" alt="갤러리 사진 4"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_05.jpg" alt="갤러리 사진 5"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_06.jpg" alt="갤러리 사진 6"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_07.jpg" alt="갤러리 사진 7"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_08.jpg" alt="갤러리 사진 8"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_09.jpg" alt="갤러리 사진 9"></div>
+                    <div class="swiper-slide"><img src="images/KakaoTalk_20260317_171113044_10.jpg" alt="갤러리 사진 10"></div>
+                </div>
+                <!-- 페이징 -->
+                <div class="swiper-pagination"></div>
             </div>
         </section>
 
@@ -140,6 +147,9 @@
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
         integrity="sha384-TinbxGrZg3K/Kz8Ew9rLFX5E9lF51Q7TjN4V6E2E1x62oI3n5f0kG0u+G8cK8XmQ"
         crossorigin="anonymous"></script>
+
+    <!-- Swiper.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Firebase SDK (방명록용) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>

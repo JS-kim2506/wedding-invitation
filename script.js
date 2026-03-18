@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ===================================
-    // 2. 갤러리 그리드 + 라이트박스 모달
+    // 2. 갤러리 슬라이더 + 라이트박스 모달
     // ===================================
     const modal      = document.getElementById('image-modal');
     const modalImg   = document.getElementById('expanded-img');
@@ -31,7 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn    = document.getElementById('modal-prev');
     const nextBtn    = document.getElementById('modal-next');
     const counter    = document.getElementById('modal-counter');
-    const gridImages = Array.from(document.querySelectorAll('.photo-grid img'));
+    const sliderImages = Array.from(document.querySelectorAll('.gallery-slider img'));
+
+    // Swiper 초기화
+    const swiper = new Swiper('.gallery-slider', {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 0,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
 
     let currentIndex = 0;
 
@@ -49,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateModal() {
-        modalImg.src = gridImages[currentIndex].src;
-        counter.textContent = `${currentIndex + 1} / ${gridImages.length}`;
+        modalImg.src = sliderImages[currentIndex].src;
+        counter.textContent = `${currentIndex + 1} / ${sliderImages.length}`;
     }
 
-    gridImages.forEach((img, i) => {
+    sliderImages.forEach((img, i) => {
         img.addEventListener('click', () => openModal(i));
     });
 

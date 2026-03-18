@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const kakaoBtn = document.getElementById('kakao-share-btn');
     if (kakaoBtn) {
         // 카카오 SDK 초기화 (본인의 JavaScript 키를 입력해야 작동합니다)
-        // Kakao.init('YOUR_JAVASCRIPT_KEY'); 
+        Kakao.init('b1cad1ee5721d3a29b39ea0dbf05828b');
         kakaoBtn.addEventListener('click', () => {
             if (!Kakao.isInitialized()) {
                 alert('카카오 API 키가 설정되지 않았습니다. 개발자에게 문의하세요.');
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 content: {
                     title: '김지수 & 이민호 결혼합니다',
                     description: '저희 두 사람의 새로운 시작을 축복해주세요.',
-                    imageUrl: 'https://via.placeholder.com/600x800.png?text=Thumbnail', // 썸네일로 보일 이미지 주소
+                    imageUrl: 'https://JS-kim2506.github.io/wedding-invitation/images/KakaoTalk_20260317_171113044.jpg', // 썸네일로 보일 이미지 주소
                     link: {
                         mobileWebUrl: window.location.href,
                         webUrl: window.location.href,

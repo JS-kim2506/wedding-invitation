@@ -413,20 +413,22 @@ section + section {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
-    z-index: 999999; /* 절대적인 최상위 레이어 */
+    z-index: 1000000; /* 최상위 보장 */
     overflow: hidden;
 }
 
 .svg-heart {
     position: absolute;
-    fill: #d4af37; /* Metallic Gold */
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+    width: 20px; 
+    height: 20px;
+    fill: #C5A028; /* 선명도가 높은 골드 */
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
     will-change: transform, opacity;
-    pointer-events: none;
-    animation: heartFly 1.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+    animation: heartFly 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+    transform: translate(-50%, -50%); /* 중심 정점 초기화 */
 }
 
 @keyframes heartFly {
@@ -434,17 +436,13 @@ section + section {
         transform: translate(-50%, -50%) scale(0) rotate(0deg);
         opacity: 0;
     }
-    5% {
+    10% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.4) rotate(var(--rot));
-    }
-    20% {
-        opacity: 1;
-        transform: translate(calc(-50% + var(--tx) * 0.2), calc(-50% + var(--ty) * 0.2)) scale(1.2) rotate(var(--rot));
+        transform: translate(-50%, -50%) scale(1.5) rotate(var(--rot));
     }
     100% {
         /* 하트마다 다른 최종 위치로 날아감 (상대적 오프셋 적용) */
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0) rotate(var(--rot-end));
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.3) rotate(var(--rot-end));
         opacity: 0;
     }
 }

@@ -160,58 +160,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ===================================
-    // 5. 프리미엄 SVG 하트 인터랙션 (최종 수리 버전)
+    // 5. 프리미엄 SVG 하트 인터랙션 (좌표 보정 완료)
     // ===================================
     const heartBtn = document.getElementById('heart-btn');
     const particleContainer = document.getElementById('particle-container');
 
     if (heartBtn && particleContainer) {
         heartBtn.addEventListener('click', (e) => {
-            // 버튼의 현재 정확한 뷰포트 좌표 계산
+            // 버튼의 정확한 화면 중심 좌표
             const rect = heartBtn.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
+            const startX = Math.round(rect.left + rect.width / 2);
+            const startY = Math.round(rect.top + rect.height / 2);
             
-            // 더 화려하게 25개의 하트 생성
-            for (let i = 0; i < 25; i++) {
-                createSvgHeart(x, y);
+            // 20개의 하트를 화려하게 생성
+            for (let i = 0; i < 20; i++) {
+                createSvgHeart(startX, startY);
             }
         });
     }
 
     function createSvgHeart(x, y) {
-        const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        heart.setAttribute("viewBox", "0 0 32 32");
+        // SVG 네임스페이스 보장
+        const ns = "http://www.w3.org/2000/svg";
+        const heart = document.createElementNS(ns, "svg");
+        heart.setAttributeNS(null, "viewBox", "0 0 32 32");
         heart.classList.add("svg-heart");
         
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", "M16 28.5L14.1 26.7C7.3 20.6 2.8 16.5 2.8 11.5 2.8 7.4 6 4.2 10.1 4.2c2.3 0 4.5 1.1 5.9 2.8 1.4-1.7 3.6-2.8 5.9-2.8 4.1 0 7.3 3.2 7.3 7.3 0 5-4.5 9.1-11.3 15.2L16 28.5z");
+        const path = document.createElementNS(ns, "path");
+        path.setAttributeNS(null, "d", "M16 28.5L14.1 26.7C7.3 20.6 2.8 16.5 2.8 11.5 2.8 7.4 6 4.2 10.1 4.2c2.3 0 4.5 1.1 5.9 2.8 1.4-1.7 3.6-2.8 5.9-2.8 4.1 0 7.3 3.2 7.3 7.3 0 5-4.5 9.1-11.3 15.2L16 28.5z");
         heart.appendChild(path);
 
-        // 랜덤 오프셋 파라미터 (Click 지점으로부터의 상대적 거리)
-        const tx = (Math.random() - 0.5) * 500; // 좌우 최대 500px 풍성하게
-        const ty = -300 - Math.random() * 500; // 위로 최대 800px 높게
-        const rot = (Math.random() - 0.5) * 80;
-        const rotEnd = rot + (Math.random() - 0.5) * 360; // 회전량 증가
-        const size = 20 + Math.random() * 25; // 약간 더 크게
+        // 랜덤 파라미터 (Click 지점으로부터의 상대적 오프셋)
+        const tx = (Math.random() - 0.5) * 400; // 좌우 넓게
+        const ty = -300 - Math.random() * 400; // 위로 높게
+        const rot = (Math.random() - 0.5) * 60;
+        const rotEnd = rot + (Math.random() - 0.5) * 180;
+        const size = Math.round(20 + Math.random() * 20);
 
-        heart.style.width = `${size}px`;
-        heart.style.height = `${size}px`;
-        heart.style.left = `${x}px`;
-        heart.style.top = `${y}px`;
-        
-        // CSS 변수로 오프셋 전달
-        heart.style.setProperty('--tx', `${tx}px`);
-        heart.style.setProperty('--ty', `${ty}px`);
-        heart.style.setProperty('--rot', `${rot}deg`);
-        heart.style.setProperty('--rot-end', `${rotEnd}deg`);
+        // 스타일 적용 (인라인 스타일 우선순위 확보)
+        heart.style.cssText = `
+            left: ${x}px;
+            top: ${y}px;
+            width: ${size}px;
+            height: ${size}px;
+            --tx: ${tx}px;
+            --ty: ${ty}px;
+            --rot: ${rot}deg;
+            --rot-end: ${rotEnd}deg;
+        `;
 
         particleContainer.appendChild(heart);
 
-        // 애니메이션 완료 후 완전히 제거
+        // 애니메이션 완료 후 확실하게 제거 (1.5s 애니메이션에 맞춰 1.6s 대기)
         setTimeout(() => {
             if (heart.parentNode) heart.remove();
-        }, 1800);
+        }, 1600);
     }
 
 

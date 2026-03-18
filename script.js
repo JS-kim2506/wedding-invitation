@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ===================================
-    // [우선 실행] 하트 인터랙션 (다른 에러에 영향받지 않도록 최상단 배치)
+    // [긴급 수정] 하트 인터랙션 (Web Animations API 기반)
     // ===================================
     try {
         const heartBtn = document.getElementById('heart-btn');
@@ -10,51 +10,55 @@ document.addEventListener('DOMContentLoaded', () => {
         if (heartBtn && particleContainer) {
             heartBtn.addEventListener('click', (e) => {
                 const rect = heartBtn.getBoundingClientRect();
-                const x = Math.round(rect.left + rect.width / 2);
-                const y = Math.round(rect.top + rect.height / 2);
+                const startX = Math.round(rect.left + rect.width / 2);
+                const startY = Math.round(rect.top + rect.height / 2);
                 
-                for (let i = 0; i < 25; i++) {
-                    createSvgHeart(x, y);
+                // 30개의 하트로 풍성하게 연출
+                for (let i = 0; i < 30; i++) {
+                    createSvgHeart(startX, startY);
                 }
             });
         }
-    } catch (err) {
-        console.error("Heart Interaction Error:", err);
+    } catch (e) {
+        console.error("Heart Init Error:", e);
     }
 
     function createSvgHeart(x, y) {
         const ns = "http://www.w3.org/2000/svg";
-        const heart = document.createElementNS(ns, "svg");
-        const particleContainer = document.getElementById('particle-container');
-        if (!particleContainer) return;
+        const container = document.getElementById('particle-container');
+        if (!container) return;
 
-        heart.setAttributeNS(null, "viewBox", "0 0 32 32");
-        heart.classList.add("svg-heart");
+        const svg = document.createElementNS(ns, "svg");
+        svg.setAttribute("viewBox", "0 0 32 32");
+        svg.classList.add("svg-heart");
         
         const path = document.createElementNS(ns, "path");
-        path.setAttributeNS(null, "d", "M16 28.5L14.1 26.7C7.3 20.6 2.8 16.5 2.8 11.5 2.8 7.4 6 4.2 10.1 4.2c2.3 0 4.5 1.1 5.9 2.8 1.4-1.7 3.6-2.8 5.9-2.8 4.1 0 7.3 3.2 7.3 7.3 0 5-4.5 9.1-11.3 15.2L16 28.5z");
-        heart.appendChild(path);
+        path.setAttribute("d", "M16 28.5L14.1 26.7C7.3 20.6 2.8 16.5 2.8 11.5 2.8 7.4 6 4.2 10.1 4.2c2.3 0 4.5 1.1 5.9 2.8 1.4-1.7 3.6-2.8 5.9-2.8 4.1 0 7.3 3.2 7.3 7.3 0 5-4.5 9.1-11.3 15.2L16 28.5z");
+        svg.appendChild(path);
 
-        const tx = (Math.random() - 0.5) * 500;
-        const ty = -300 - Math.random() * 500;
-        const rot = (Math.random() - 0.5) * 90;
-        const rotEnd = rot + (Math.random() - 0.5) * 360;
-        const size = Math.round(25 + Math.random() * 25);
+        const size = Math.round(20 + Math.random() * 25);
+        const tx = (Math.random() - 0.5) * 600; // 좌우 확산 범위 확대
+        const ty = -400 - Math.random() * 500; // 위로 높게 발사
+        const rot = (Math.random() - 0.5) * 360; // 회전 최대화
 
-        heart.style.cssText = `
-            left: ${x}px;
-            top: ${y}px;
-            width: ${size}px;
-            height: ${size}px;
-            --tx: ${tx}px;
-            --ty: ${ty}px;
-            --rot: ${rot}deg;
-            --rot-end: ${rotEnd}deg;
-            z-index: 1000000;
-        `;
+        // 초기 위치 설정
+        svg.style.left = x + 'px';
+        svg.style.top = y + 'px';
+        svg.style.width = size + 'px';
+        svg.style.height = size + 'px';
 
-        particleContainer.appendChild(heart);
-        setTimeout(() => { if (heart.parentNode) heart.remove(); }, 1800);
+        container.appendChild(svg);
+
+        // Web Animations API로 직접 제어 (CSS 의존성 제거)
+        svg.animate([
+            { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 0 },
+            { transform: 'translate(-50%, -50%) scale(1.4) rotate(0deg)', opacity: 1, offset: 0.1 },
+            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0) rotate(${rot}deg)`, opacity: 0 }
+        ], {
+            duration: 1600 + Math.random() * 600,
+            easing: 'cubic-bezier(0.15, 0.85, 0.35, 1)',
+            fill: 'forwards'
+        }).onfinish = () => svg.remove();
     }
 
     // ===================================

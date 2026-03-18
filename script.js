@@ -11,15 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
             entry.target.classList.add('visible');
             observer.unobserve(entry.target);
         });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     faders.forEach(fader => appearOnScroll.observe(fader));
-
-    // 최상단 커버는 바로 표시
-    setTimeout(() => {
-        document.querySelectorAll('.cover-section.fade-in')
-            .forEach(el => el.classList.add('visible'));
-    }, 100);
 
 
     // ===================================
@@ -37,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const swiper = new Swiper('.gallery-slider', {
         slidesPerView: 'auto',
         centeredSlides: true,
-        spaceBetween: 0,
+        spaceBetween: 20,
         loop: true,
         pagination: {
             el: '.swiper-pagination',
@@ -61,8 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateModal() {
-        modalImg.src = sliderImages[currentIndex].src;
-        counter.textContent = `${currentIndex + 1} / ${sliderImages.length}`;
+        if (sliderImages[currentIndex]) {
+            modalImg.src = sliderImages[currentIndex].src;
+            counter.textContent = `${currentIndex + 1} / ${sliderImages.length}`;
+        }
     }
 
     sliderImages.forEach((img, i) => {
@@ -70,26 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeBtn.addEventListener('click', closeModal);
-    prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + gridImages.length) % gridImages.length;
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + sliderImages.length) % sliderImages.length;
         updateModal();
     });
-    nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % gridImages.length;
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % sliderImages.length;
         updateModal();
     });
 
-    // 모달 배경 클릭 시 닫기
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    // 키보드 좌우 화살표
-    document.addEventListener('keydown', (e) => {
-        if (!modal.classList.contains('show')) return;
-        if (e.key === 'ArrowLeft')  { currentIndex = (currentIndex - 1 + gridImages.length) % gridImages.length; updateModal(); }
-        if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % gridImages.length; updateModal(); }
-        if (e.key === 'Escape')     closeModal();
+        if (e.target === modal || e.target.classList.contains('modal-inner')) closeModal();
     });
 
 
@@ -102,15 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const el = document.querySelector(targetId);
             if (!el) return;
 
+            const text = el.innerText.trim();
             const textarea = document.createElement('textarea');
-            textarea.value = el.innerText;
+            textarea.value = text;
             document.body.appendChild(textarea);
             textarea.select();
             try {
                 document.execCommand('copy');
-                alert('계좌번호가 복사되었습니다.');
+                alert('Account number copied to clipboard.');
             } catch {
-                alert('복사에 실패했습니다. 직접 복사해주세요.');
+                alert('Copy failed. Please try again.');
             }
             document.body.removeChild(textarea);
         });
@@ -125,14 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
         Kakao.init('b1cad1ee5721d3a29b39ea0dbf05828b');
         kakaoBtn.addEventListener('click', () => {
             if (!Kakao.isInitialized()) {
-                alert('카카오 API 키가 설정되지 않았습니다.');
+                alert('Kakao API is not initialized.');
                 return;
             }
             Kakao.Share.sendDefault({
                 objectType: 'feed',
                 content: {
-                    title: '김지수 & 이민호 결혼합니다',
-                    description: '저희 두 사람의 새로운 시작을 축복해주세요.',
+                    title: 'Ji Su & Min Ho Wedding',
+                    description: 'Celebrate our first step together.',
                     imageUrl: 'https://JS-kim2506.github.io/wedding-invitation/images/KakaoTalk_20260317_171113044.jpg',
                     link: {
                         mobileWebUrl: window.location.href,
@@ -140,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                 },
                 buttons: [{
-                    title: '청첩장 보기',
+                    title: 'View Invitation',
                     link: {
                         mobileWebUrl: window.location.href,
                         webUrl: window.location.href,
@@ -153,15 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const linkCopyBtn = document.getElementById('link-copy-btn');
     if (linkCopyBtn) {
         linkCopyBtn.addEventListener('click', () => {
+            const url = window.location.href;
             const textarea = document.createElement('textarea');
-            textarea.value = window.location.href;
+            textarea.value = url;
             document.body.appendChild(textarea);
             textarea.select();
             try {
                 document.execCommand('copy');
-                alert('청첩장 링크가 복사되었습니다!');
+                alert('URL link copied to clipboard!');
             } catch {
-                alert('복사에 실패했습니다.');
+                alert('Copy failed.');
             }
             document.body.removeChild(textarea);
         });
@@ -169,57 +160,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ===================================
-    // 5. 하트 파티클 버튼
+    // 5. 프리미엄 SVG 하트 인터랙션 (수정된 핵심 로직)
     // ===================================
     const heartBtn = document.getElementById('heart-btn');
-    if (heartBtn) {
+    const particleContainer = document.getElementById('particle-container');
+
+    if (heartBtn && particleContainer) {
         heartBtn.addEventListener('click', (e) => {
-            createHearts(e.clientX, e.clientY);
+            for (let i = 0; i < 18; i++) {
+                createSvgHeart(e.clientX, e.clientY);
+            }
         });
     }
 
-    function createHearts(x, y) {
-        const emojis = ['♥', '♡', '💕', '💗'];
-        for (let i = 0; i < 15; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('particle-heart');
-            heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            
-            // 랜덤 경로 설정
-            const tx     = (Math.random() - 0.5) * 200; // 좌우 이동
-            const tyMid  = -100 - Math.random() * 50;  // 중간 높이
-            const tyEnd  = -250 - Math.random() * 100; // 최종 높이
-            const rot    = (Math.random() - 0.5) * 90;  // 회전
-            const size   = Math.random() * 10 + 15;    // 크기
-            
-            heart.style.left = `${x}px`;
-            heart.style.top  = `${y}px`;
-            heart.style.fontSize = `${size}px`;
-            heart.style.color = ['#c4956a', '#e8b4b8', '#d4a5a5', '#b8966e'][Math.floor(Math.random() * 4)];
-            
-            // CSS 변수 전달
-            heart.style.setProperty('--tx', `${tx}px`);
-            heart.style.setProperty('--ty-mid', `${tyMid}px`);
-            heart.style.setProperty('--ty-end', `${tyEnd}px`);
-            heart.style.setProperty('--rot', `${rot}deg`);
-            
-            document.body.appendChild(heart);
-            
-            // 애니메이션 종료 후 제거
-            heart.addEventListener('animationend', () => heart.remove());
-        }
+    function createSvgHeart(x, y) {
+        const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        heart.setAttribute("viewBox", "0 0 32 32");
+        heart.classList.add("svg-heart");
+        
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", "M16 28.5L14.1 26.7C7.3 20.6 2.8 16.5 2.8 11.5 2.8 7.4 6 4.2 10.1 4.2c2.3 0 4.5 1.1 5.9 2.8 1.4-1.7 3.6-2.8 5.9-2.8 4.1 0 7.3 3.2 7.3 7.3 0 5-4.5 9.1-11.3 15.2L16 28.5z");
+        heart.appendChild(path);
+
+        // 랜덤 파라미터
+        const tx = (Math.random() - 0.5) * 300;
+        const ty = -300 - Math.random() * 300;
+        const rot = (Math.random() - 0.5) * 45;
+        const rotEnd = rot + (Math.random() - 0.5) * 180;
+        const size = 15 + Math.random() * 20;
+
+        heart.style.width = `${size}px`;
+        heart.style.height = `${size}px`;
+        heart.style.left = `${x}px`;
+        heart.style.top = `${y}px`;
+        
+        // CSS 변수 전달
+        heart.style.setProperty('--tx', `${x + tx}px`);
+        heart.style.setProperty('--ty', `${y + ty}px`);
+        heart.style.setProperty('--rot', `${rot}deg`);
+        heart.style.setProperty('--rot-end', `${rotEnd}deg`);
+
+        particleContainer.appendChild(heart);
+
+        // 애니메이션 완료 후 제거
+        heart.addEventListener('animationend', () => heart.remove());
     }
 
 
     // ===================================
-    // 6. 방명록 (Firebase Firestore)
+    // 6. 방명록 (Firebase)
     // ===================================
-
-    // ⚠️ Firebase 설정값을 아래에 입력해주세요
-    // Firebase 콘솔(console.firebase.google.com)에서 앱 등록 후 받는 config 객체입니다
     const firebaseConfig = {
         apiKey:            "AIzaSyC-BRKmOhj_wysfNhNxcSKbIqtIm82FbtA",
-        authDomain:        "wedding-invitation-35b40.firebaseapp.com",
+        authorDomain:      "wedding-invitation-35b40.firebaseapp.com",
         projectId:         "wedding-invitation-35b40",
         storageBucket:     "wedding-invitation-35b40.firebasestorage.app",
         messagingSenderId: "303986241786",
@@ -227,8 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         measurementId:     "G-NF1TLH2JCH"
     };
 
-    // Firebase가 설정된 경우에만 방명록 실행
-    if (firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+    if (firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
         const app = firebase.initializeApp(firebaseConfig);
         const db  = firebase.firestore();
 
@@ -237,12 +229,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const gbMsg    = document.getElementById('gb-message');
         const gbSubmit = document.getElementById('gb-submit');
 
-        // 메시지 제출
         gbSubmit.addEventListener('click', async () => {
             const name    = gbName.value.trim();
             const message = gbMsg.value.trim();
             if (!name || !message) {
-                alert('이름과 메시지를 모두 입력해주세요.');
+                alert('Please enter both name and message.');
                 return;
             }
             try {
@@ -254,24 +245,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 gbName.value = '';
                 gbMsg.value  = '';
             } catch (err) {
-                alert('저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+                alert('Failed to save. Please try again.');
                 console.error(err);
             }
         });
 
-        // 실시간으로 방명록 불러오기
         db.collection('guestbook')
             .orderBy('createdAt', 'desc')
             .onSnapshot((snapshot) => {
                 if (snapshot.empty) {
-                    gbList.innerHTML = '<p class="guestbook-empty">첫 번째 축하 메시지를 남겨주세요 ♡</p>';
+                    gbList.innerHTML = '<p class="guestbook-empty">Be the first to leave a message ♡</p>';
                     return;
                 }
                 gbList.innerHTML = '';
                 snapshot.forEach(doc => {
                     const { name, message, createdAt } = doc.data();
-                    const date = createdAt
-                        ? new Date(createdAt.seconds * 1000).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
+                    const date = createdAt 
+                        ? new Date(createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
                         : '';
                     const item = document.createElement('div');
                     item.classList.add('guestbook-item');
@@ -288,11 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function escapeHtml(text) {
-        return text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
-
 });

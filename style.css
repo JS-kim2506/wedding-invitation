@@ -1,6 +1,18 @@
 /* ===================================
-   기본 리셋 및 폰트 설정
+   Luxury Minimalist Design System
    =================================== */
+:root {
+    --bg-color: #fdf9f3;
+    --text-main: #2c2c2c;
+    --text-sub: #6b5e52;
+    --accent-gold: #c2a686;
+    --accent-gold-light: #eaddcd;
+    --border-color: #e5dcd2;
+    --white: #ffffff;
+    --shadow-soft: 0 10px 30px rgba(44, 44, 44, 0.05);
+    --shadow-deep: 0 20px 50px rgba(44, 44, 44, 0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,586 +20,330 @@
 }
 
 body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
-        'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    background-color: #f8f5f0;
-    color: #2c2016;
-    line-height: 1.7;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.8;
     overflow-x: hidden;
+    /* 은은한 종이 질감 추가 */
+    background-image: url("https://www.transparenttextures.com/patterns/felt.png");
 }
 
 /* ===================================
-   메인 컨테이너
+   Layout
    =================================== */
 .invitation-container {
     max-width: 480px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    background: var(--white);
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.03);
 }
 
-/* ===================================
-   섹션 공통
-   =================================== */
 section {
-    padding: 64px 28px;
+    padding: 80px 32px;
+    position: relative;
 }
 
 section + section {
-    border-top: 1px solid #e5dcd2;
+    border-top: 1px solid var(--border-color);
 }
 
+/* ===================================
+   Typography & Decoration
+   =================================== */
 .section-title {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 48px;
 }
 
-/* 영문 장식 타이틀 (Cormorant Garamond) */
 .section-title h3 {
-    font-family: 'Cormorant Garamond', 'Pretendard', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 300;
-    color: #2c2016;
-    letter-spacing: 2px;
-    line-height: 1.3;
+    color: var(--text-main);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
 }
 
 .section-title .ko-label {
-    display: block;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 4px;
-    color: #b8966e;
+    letter-spacing: 5px;
+    color: var(--accent-gold);
     text-transform: uppercase;
-    margin-top: 6px;
 }
 
 .title-deco {
+    margin-top: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-top: 16px;
+    gap: 12px;
 }
 
 .title-deco::before,
 .title-deco::after {
     content: '';
-    width: 40px;
+    width: 60px;
     height: 1px;
-    background: linear-gradient(to right, transparent, #c4956a);
+    background: linear-gradient(to right, transparent, var(--accent-gold));
 }
 
 .title-deco::after {
-    background: linear-gradient(to left, transparent, #c4956a);
+    background: linear-gradient(to left, transparent, var(--accent-gold));
 }
 
 .title-deco-diamond {
-    width: 5px;
-    height: 5px;
-    background: #c4956a;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-gold);
     transform: rotate(45deg);
-    border-radius: 1px;
 }
 
 /* ===================================
-   커버 섹션
+   Cover Section (Impact Upgrade)
    =================================== */
 .cover-section {
-    text-align: center;
     padding: 0;
-    border-top: none;
-    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
 }
 
 .cover-image-placeholder {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 .cover-image-placeholder img {
     width: 100%;
-    display: block;
+    height: 100%;
     object-fit: cover;
-    min-height: 480px;
-    max-height: 80vh;
 }
 
-/* 이미지 위 그라디언트 오버레이 */
 .cover-image-placeholder::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 60%;
-    background: linear-gradient(to top, rgba(20,14,8,0.72) 0%, transparent 100%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%);
 }
 
-/* 이미지 위에 글자 오버레이 */
 .cover-titles {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     z-index: 2;
-    padding: 32px 28px 40px;
-    text-align: center;
-    color: #fff;
+    padding: 60px 32px;
+    text-align: center color: var(--white);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-.date {
+.cover-titles .date {
     font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.cover-titles .names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    letter-spacing: 10px;
+    margin-bottom: 12px;
+    line-height: 1.1;
+}
+
+.cover-titles .subtitle {
     font-size: 0.9rem;
     font-weight: 300;
-    letter-spacing: 5px;
-    color: rgba(255,255,255,0.75);
-    display: block;
-    margin-bottom: 10px;
-}
-
-.names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4rem;
-    font-weight: 300;
-    letter-spacing: 8px;
-    color: #fff;
-    margin-bottom: 10px;
-    line-height: 1.2;
-}
-
-.subtitle {
-    font-size: 0.85rem;
-    font-weight: 300;
-    letter-spacing: 3px;
-    color: rgba(255,255,255,0.7);
+    letter-spacing: 4px;
+    opacity: 0.9;
 }
 
 /* ===================================
-   모시는 글 섹션
+   Greeting Section
    =================================== */
 .greeting-section {
-    text-align: center;
-    background: #fff;
+    background: var(--bg-color);
 }
 
-.greeting-section p {
-    font-size: 0.95rem;
+.greeting-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    margin-bottom: 32px;
+}
+
+.greeting-text {
+    font-size: 1rem;
     font-weight: 300;
-    color: #6b5e52;
-    line-height: 2.2;
+    color: var(--text-sub);
+    line-height: 2.4;
 }
 
 /* ===================================
-   갤러리 섹션 - 슬라이더
+   Gallery Slider (Custom Styling)
    =================================== */
 .gallery-section {
-    background: #f8f5f0;
-    text-align: center;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 80px 0;
 }
 
 .gallery-slider {
-    width: 100%;
-    padding: 20px 0 50px;
+    padding: 40px 0 60px;
 }
 
 .gallery-slider .swiper-slide {
-    width: 280px;
-    height: auto;
-    transition: all 0.4s ease;
-    opacity: 0.4; /* 기본 투명도 */
-    transform: scale(0.9);
+    width: 80%;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0.3;
+    transform: scale(0.85);
 }
 
 .gallery-slider .swiper-slide-active {
-    opacity: 1; /* 중앙 이미지만 선명하게 */
+    opacity: 1;
     transform: scale(1);
 }
 
 .gallery-slider img {
     width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    border-radius: 12px; /* 모서리 둥글게 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    box-shadow: var(--shadow-deep);
     cursor: zoom-in;
-    display: block;
 }
 
 .gallery-slider .swiper-pagination-bullet {
-    background: #c4956a;
-    opacity: 0.2;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-gold);
+    opacity: 0.3;
+    transition: all 0.3s;
 }
 
 .gallery-slider .swiper-pagination-bullet-active {
+    width: 24px;
+    border-radius: 3px;
     opacity: 1;
 }
 
 /* ===================================
-   갤러리 모달 (라이트박스)
+   Account & Guestbook (Gold Theme)
    =================================== */
-.image-modal {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(12, 8, 4, 0.95);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    align-items: center;
-    justify-content: center;
-}
-
-.image-modal.show {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 60px 50px;
-}
-
-.modal-content {
-    max-width: 100%;
-    max-height: 85vh;
-    object-fit: contain;
-    animation: zoom 0.22s ease;
-}
-
-@keyframes zoom {
-    from { transform: scale(0.93); opacity: 0; }
-    to   { transform: scale(1);    opacity: 1; }
-}
-
-.close-modal {
-    position: fixed;
-    top: 18px;
-    right: 22px;
-    color: rgba(255,255,255,0.7);
-    font-size: 28px;
-    cursor: pointer;
-    transition: color 0.2s;
-    z-index: 10001;
-    line-height: 1;
-    font-weight: 300;
-}
-
-.close-modal:hover { color: #fff; }
-
-.modal-nav {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.8);
-    font-size: 1.4rem;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    z-index: 10001;
-    font-family: 'Cormorant Garamond', serif;
-}
-
-.modal-nav:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.6);
-    color: #fff;
-}
-
-.modal-nav.prev { left: 10px; }
-.modal-nav.next { right: 10px; }
-
-.modal-counter {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255,255,255,0.45);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    font-family: 'Cormorant Garamond', serif;
-}
-
-/* ===================================
-   계좌번호 섹션
-   =================================== */
-.account-section {
-    text-align: center;
-    background: #fff;
-}
-
 .account-box {
-    background: #f8f5f0;
-    border: 1px solid #e5dcd2;
-    border-radius: 4px;
-    padding: 18px 20px;
-    margin-bottom: 12px;
+    background: var(--bg-color);
+    border: 1px solid var(--accent-gold-light);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: left;
 }
 
-.account-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.account-info .bank,
-.account-info .name {
+.account-info .bank {
     font-size: 0.8rem;
-    color: #b8966e;
-    letter-spacing: 0.5px;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .account-info .acc-num {
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    color: #2c2016;
-    font-family: 'Cormorant Garamond', monospace;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    margin: 4px 0;
 }
 
 .copy-btn {
-    background: transparent;
-    border: 1px solid #c4956a;
-    color: #b8966e;
-    padding: 7px 16px;
-    border-radius: 2px;
+    background: var(--white);
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 8px 16px;
+    border-radius: 6px;
     font-size: 0.8rem;
     cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-    letter-spacing: 0.5px;
+    transition: all 0.3s;
 }
 
 .copy-btn:hover {
-    background: #c4956a;
-    color: #fff;
-    border-color: #c4956a;
-}
-
-/* ===================================
-   방명록 섹션
-   =================================== */
-.guestbook-section {
-    background: #f8f5f0;
-    text-align: center;
-    border-top: 1px solid #e5dcd2;
-    padding: 64px 28px;
-}
-
-.guestbook-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 40px;
+    background: var(--accent-gold);
+    color: var(--white);
 }
 
 .guestbook-form input,
 .guestbook-form textarea {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1px solid #ddd5c9;
-    border-radius: 3px;
-    background: #fff;
-    color: #2c2016;
+    background: var(--bg-color);
+    border: 1px solid var(--accent-gold-light);
+    border-radius: 8px;
+    padding: 16px;
     font-family: inherit;
-    font-size: 0.93rem;
-    outline: none;
-    transition: border-color 0.2s;
-    resize: none;
-}
-
-.guestbook-form input:focus,
-.guestbook-form textarea:focus {
-    border-color: #c4956a;
-}
-
-.guestbook-form input::placeholder,
-.guestbook-form textarea::placeholder {
-    color: #c4b5a5;
-}
-
-.guestbook-form textarea {
-    height: 90px;
+    margin-bottom: 12px;
+    width: 100%;
 }
 
 .guestbook-submit {
-    background: #2c2016;
-    color: #f8f5f0;
+    background: var(--text-main);
+    color: var(--white);
     border: none;
-    padding: 14px;
-    border-radius: 3px;
-    font-size: 0.9rem;
-    font-family: inherit;
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 1rem;
     letter-spacing: 2px;
     cursor: pointer;
-    transition: background 0.2s;
+    width: 100%;
+    transition: 0.3s;
 }
 
 .guestbook-submit:hover {
-    background: #4a3828;
-}
-
-.guestbook-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    text-align: left;
-}
-
-.guestbook-item {
-    background: #fff;
-    border: 1px solid #e5dcd2;
-    border-radius: 3px;
-    padding: 16px 18px;
-}
-
-.guestbook-item .gb-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.guestbook-item .gb-name {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #2c2016;
-    letter-spacing: 0.5px;
-}
-
-.guestbook-item .gb-date {
-    font-size: 0.76rem;
-    color: #c4b5a5;
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 1px;
-}
-
-.guestbook-item .gb-message {
-    font-size: 0.88rem;
-    color: #6b5e52;
-    line-height: 1.8;
-}
-
-.guestbook-empty {
-    color: #c4b5a5;
-    font-size: 0.88rem;
-    text-align: center;
-    padding: 20px 0;
-    font-style: italic;
+    background: var(--accent-gold);
 }
 
 /* ===================================
-   공유 섹션
-   =================================== */
-.share-section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    padding: 56px 28px;
-    background: #fff;
-    border-top: 1px solid #e5dcd2;
-}
-
-.share-btn {
-    width: 100%;
-    max-width: 320px;
-    padding: 14px 20px;
-    border-radius: 3px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: opacity 0.2s;
-    border: none;
-    letter-spacing: 1px;
-}
-
-.share-btn:active { opacity: 0.8; }
-
-.kakao-share {
-    background: #FEE500;
-    color: #3c1e1e;
-}
-
-.kakao-share img { height: 20px; }
-
-.link-copy {
-    background: transparent;
-    color: #2c2016;
-    border: 1px solid #ddd5c9 !important;
-}
-
-/* ===================================
-   하트 버튼 섹션
+   Interaction Button (Premium)
    =================================== */
 .interaction-btn-section {
-    text-align: center;
-    padding: 56px 28px 72px;
-    background: #f8f5f0;
-    border-top: 1px solid #e5dcd2;
+    background: var(--bg-color);
+    padding-bottom: 100px;
 }
 
 .heart-btn {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    background: #fff;
-    border: 1px solid #c4956a;
-    color: #c4956a;
-    padding: 16px 48px;
-    font-size: 1.2rem;
-    font-weight: 300;
-    letter-spacing: 3px;
-    border-radius: 4px;
+    background: var(--white);
+    border: 1px border var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 20px 60px;
+    font-size: 1.4rem;
+    border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(196, 149, 106, 0.1);
+    box-shadow: var(--shadow-soft);
+    transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .heart-btn:hover {
-    background: #c4956a;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196, 149, 106, 0.2);
-}
-
-.heart-btn:active {
-    transform: translateY(0);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-deep);
+    border-color: var(--accent-gold);
 }
 
 /* ===================================
-   Fade-in 애니메이션
+   Animations & Particles
    =================================== */
 .fade-in {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    transform: translateY(40px);
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fade-in.visible {
@@ -595,29 +351,35 @@ section + section {
     transform: translateY(0);
 }
 
-/* ===================================
-   하트 파티클 (CSS 키프레임 방식)
-   =================================== */
-.particle-heart {
+/* 하트 파티클 레이어 (SVG 기반으로 JS에서 제어할 예정) */
+.particle-container {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    user-select: none;
-    z-index: 9999;
-    animation: heartFloat 1.2s ease-out forwards;
-    transform-origin: center;
+    z-index: 99999;
 }
 
-@keyframes heartFloat {
+.svg-heart {
+    position: absolute;
+    fill: var(--accent-gold);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    animation: heartFly 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes heartFly {
     0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.2);
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
     }
-    40% {
-        opacity: 0.9;
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty-mid))) scale(1.1) rotate(var(--rot));
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2) rotate(var(--rot));
     }
     100% {
+        transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot-end));
         opacity: 0;
-        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty-end))) scale(0.5) rotate(var(--rot));
     }
 }

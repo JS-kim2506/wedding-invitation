@@ -17,16 +17,19 @@
 </head>
 
 <body>
+    <!-- 하트 파티클 레이어 -->
+    <div id="particle-container" class="particle-container"></div>
+
     <main class="invitation-container">
         <!-- 메인 커버 섹션 -->
-        <section class="cover-section fade-in">
-            <div class="cover-titles">
-                <span class="date">2024. 10. 26</span>
-                <h1 class="names">김지수 &amp; 이민호</h1>
-                <p class="subtitle">우리, 결혼합니다</p>
-            </div>
+        <section class="cover-section">
             <div class="cover-image-placeholder">
                 <img src="images/KakaoTalk_20260317_171113044.jpg" alt="메인 웨딩 사진" />
+            </div>
+            <div class="cover-titles fade-in">
+                <span class="date">OCTOBER 26, 2024</span>
+                <h1 class="names">Ji Su &amp; Min Ho</h1>
+                <p class="subtitle">우리의 소중한 시작에 초대합니다</p>
             </div>
         </section>
 
@@ -37,7 +40,8 @@
                 <span class="ko-label">초대합니다</span>
                 <div class="title-deco"><span class="title-deco-diamond"></span></div>
             </div>
-            <p>
+            <div class="greeting-quote">"Two Souls, One Heart"</div>
+            <p class="greeting-text">
                 서로가 마주 보며 다져온 사랑을<br>
                 이제 함께 한 곳을 바라보며 걸어가려 합니다.<br><br>
                 저희 두 사람이 사랑의 이름으로<br>
@@ -46,7 +50,7 @@
             </p>
         </section>
 
-        <!-- 갤러리 섹션 - 2열 그리드 -->
+        <!-- 갤러리 섹션 -->
         <section class="gallery-section fade-in">
             <div class="section-title">
                 <h3>Gallery</h3>
@@ -71,7 +75,7 @@
             </div>
         </section>
 
-        <!-- 마음 전하실 곳 (계좌번호) 섹션 -->
+        <!-- 마음 전하실 곳 섹션 -->
         <section class="account-section fade-in">
             <div class="section-title">
                 <h3>Trust Account</h3>
@@ -80,19 +84,19 @@
             </div>
             <div class="account-box">
                 <div class="account-info">
-                    <span class="bank">신한은행</span>
-                    <span class="acc-num" id="groom-acc">110-123-456789</span>
-                    <span class="name">이민호</span>
+                    <span class="bank">SHINHAN BANK</span>
+                    <p class="acc-num" id="groom-acc">110-123-456789</p>
+                    <span class="name">Groom. Lee Min Ho</span>
                 </div>
-                <button class="copy-btn" data-clipboard-target="#groom-acc">복사하기</button>
+                <button class="copy-btn" data-clipboard-target="#groom-acc">COPY</button>
             </div>
             <div class="account-box">
                 <div class="account-info">
-                    <span class="bank">국민은행</span>
-                    <span class="acc-num" id="bride-acc">04-1234-5678</span>
-                    <span class="name">김지수</span>
+                    <span class="bank">KB BANK</span>
+                    <p class="acc-num" id="bride-acc">04-1234-5678</p>
+                    <span class="name">Bride. Kim Ji Su</span>
                 </div>
-                <button class="copy-btn" data-clipboard-target="#bride-acc">복사하기</button>
+                <button class="copy-btn" data-clipboard-target="#bride-acc">COPY</button>
             </div>
         </section>
 
@@ -104,12 +108,12 @@
                 <div class="title-deco"><span class="title-deco-diamond"></span></div>
             </div>
             <div class="guestbook-form">
-                <input type="text" id="gb-name" placeholder="이름" maxlength="20">
-                <textarea id="gb-message" placeholder="축하 메시지를 남겨주세요 ♡" maxlength="200"></textarea>
-                <button class="guestbook-submit" id="gb-submit">남기기</button>
+                <input type="text" id="gb-name" placeholder="Name" maxlength="20">
+                <textarea id="gb-message" placeholder="Leave a message of celebration ♡" maxlength="200"></textarea>
+                <button class="guestbook-submit" id="gb-submit">SUBMIT</button>
             </div>
             <div class="guestbook-list" id="guestbook-list">
-                <p class="guestbook-empty">첫 번째 축하 메시지를 남겨주세요 ♡</p>
+                <p class="guestbook-empty">Be the first to leave a message ♡</p>
             </div>
         </section>
 
@@ -118,10 +122,10 @@
             <button class="share-btn kakao-share" id="kakao-share-btn">
                 <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_small.png"
                     alt="카카오톡 공유" />
-                카카오톡 공유하기
+                Share KakaoTalk
             </button>
             <button class="share-btn link-copy" id="link-copy-btn">
-                🔗 링크 복사하기
+                🔗 Copy URL link
             </button>
         </section>
 
@@ -130,7 +134,7 @@
             <button id="heart-btn" class="heart-btn">Click! ♥</button>
         </section>
 
-        <!-- 사진 확대 모달 (라이트박스) -->
+        <!-- 사진 확대 모달 -->
         <div id="image-modal" class="image-modal">
             <span class="close-modal">&times;</span>
             <div class="modal-inner">

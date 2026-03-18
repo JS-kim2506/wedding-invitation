@@ -193,6 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     gbList.appendChild(item);
                 });
             });
+        }
+    } catch (e) {
+        console.warn("Firebase or Guestbook error:", e);
     }
 
     function escapeHtml(text) {

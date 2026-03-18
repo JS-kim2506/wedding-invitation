@@ -557,22 +557,28 @@ section + section {
 .heart-btn {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    background: none;
+    background: #fff;
     border: 1px solid #c4956a;
     color: #c4956a;
-    padding: 14px 40px;
-    font-size: 1.15rem;
-    font-weight: 400;
-    letter-spacing: 2px;
-    border-radius: 2px;
+    padding: 16px 48px;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.25s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(196, 149, 106, 0.1);
 }
 
-.heart-btn:hover,
-.heart-btn:active {
+.heart-btn:hover {
     background: #c4956a;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196, 149, 106, 0.2);
+}
+
+.heart-btn:active {
+    transform: translateY(0);
 }
 
 /* ===================================
@@ -608,10 +614,10 @@ section + section {
     }
     40% {
         opacity: 0.9;
-        transform: translate(var(--tx), var(--ty-mid)) scale(1.1) rotate(var(--rot));
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty-mid))) scale(1.1) rotate(var(--rot));
     }
     100% {
         opacity: 0;
-        transform: translate(var(--tx), var(--ty-end)) scale(0.5) rotate(var(--rot));
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty-end))) scale(0.5) rotate(var(--rot));
     }
 }
